@@ -10,5 +10,11 @@
     "special": "Special Persona",
     "stats": "Stats",
     "elements": "Elements",
-    "skills": "Skills"
+    "skills": "Skills",
+    "fusion_to_this_persona": "Fusion to this Persona",
+    "fusion_from_this_persona": "Fusion from this Persona",
+    "settings": "Settings",
+    "select_dlc_personas": "Select DLC Personas",
+    "select_dlc_personas_desc": "Select DLC Personas enabled in your game",
+    "about_app": "About App"
 }

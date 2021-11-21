@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:p5_fusion_app/pages/fusion_page/fusion_page.dart';
 import 'package:p5_fusion_app/utils/instance_manager.dart';
 import 'package:p5_fusion_dart/p5_fusion_dart.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -43,10 +44,10 @@ class _PersonaPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(PersonaPage.of(context).persona.name),
         ),
-        body: Padding(
+        body: SingleChildScrollView(
+            child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-              child: Column(children: [
+          child: Column(children: [
             _AttributeItem(
                 title: AppLocalizations.of(context)!.arcana,
                 value: Text(persona.arcana.name)),
@@ -130,8 +131,37 @@ class _PersonaPage extends StatelessWidget {
                     ],
                   );
                 })),
-          ])),
-        ));
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      final List<Fusion> fusionList = InstanceManager.instance
+                          .get<PersonaService>()
+                          .getFusionsFrom(persona);
+                      Navigator.of(context).pushNamed(
+                        FusionPage.routeName,
+                        arguments: FusionPageArgs(fusions: fusionList),
+                      );
+                    },
+                    child: Text(AppLocalizations.of(context)!
+                        .fusion_from_this_persona)),
+                ElevatedButton(
+                    onPressed: () {
+                      final List<Fusion> fusionList = InstanceManager.instance
+                          .get<PersonaService>()
+                          .getFusionsTo(persona);
+                      Navigator.of(context).pushNamed(
+                        FusionPage.routeName,
+                        arguments: FusionPageArgs(fusions: fusionList),
+                      );
+                    },
+                    child: Text(
+                        AppLocalizations.of(context)!.fusion_to_this_persona)),
+              ],
+            )
+          ]),
+        )));
   }
 }
 

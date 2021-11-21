@@ -11,16 +11,18 @@ class PersonaList extends StatelessWidget {
         itemExtent: 80,
         itemBuilder: (context, index) {
           final Persona persona = personas[index];
-          return Card(
-            child: ListTile(
-              title: Text(persona.name),
-              subtitle: Text(persona.arcana.name),
-              trailing: IconButton(
-                icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(PersonaPage.routeName,
-                      arguments: PersonaPageArgs(persona: persona));
-                },
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(PersonaPage.routeName,
+                  arguments: PersonaPageArgs(persona: persona));
+            },
+            child: Card(
+              child: ListTile(
+                title: Text(persona.name),
+                subtitle: Text(persona.arcana.name),
+                trailing: const Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                ),
               ),
             ),
           );
