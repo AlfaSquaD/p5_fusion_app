@@ -6,6 +6,7 @@ import 'package:p5_fusion_app/pages/main_page/main_page.dart';
 import 'package:p5_fusion_app/pages/persona_page/persona_page.dart';
 import 'package:p5_fusion_app/pages/settings/settings.dart';
 import 'package:p5_fusion_app/pages/settings/sub_pages/dlc_persona_page.dart';
+import 'package:p5_fusion_app/pages/skill_page/skill_page.dart';
 import 'package:p5_fusion_app/utils/instance_manager.dart';
 import 'package:p5_fusion_dart/p5_fusion_dart.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,10 +45,10 @@ class Persona5FusionCalculator extends StatelessWidget {
       theme:
           ThemeData(brightness: Brightness.light, primarySwatch: Colors.teal),
       darkTheme:
-          ThemeData(brightness: Brightness.dark, primarySwatch: Colors.teal),
+          ThemeData(brightness: Brightness.dark, primarySwatch: Colors.grey),
       initialRoute: '/',
       routes: {
-        MainPage.routeName: (context) => MainPage(),
+        MainPage.routeName: (context) => const MainPage(),
         SettingsPage.routeName: (context) => const SettingsPage(),
         SelectDlcPersona.routeName: (context) => const SelectDlcPersona(),
       },
@@ -65,6 +66,7 @@ class Persona5FusionCalculator extends StatelessWidget {
           case PersonaPage.routeName:
             return MaterialPageRoute(
               builder: (context) => PersonaPage(
+                key: Key((settings.arguments as PersonaPageArgs).persona.name),
                 args: settings.arguments as PersonaPageArgs,
               ),
             );
@@ -74,9 +76,16 @@ class Persona5FusionCalculator extends StatelessWidget {
                 args: settings.arguments as FusionPageArgs,
               ),
             );
+          case SkillPage.routeName:
+            return MaterialPageRoute(
+              builder: (context) => SkillPage(
+                key: Key((settings.arguments as SkillPageArgs).skillData.name),
+                args: settings.arguments as SkillPageArgs,
+              ),
+            );
           default:
             return MaterialPageRoute(
-              builder: (context) => MainPage(),
+              builder: (context) => const MainPage(),
             );
         }
       },

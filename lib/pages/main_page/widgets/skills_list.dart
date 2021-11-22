@@ -1,9 +1,9 @@
 part of 'widgets.dart';
 
-class PersonaList extends StatelessWidget {
-  const PersonaList({Key? key, required this.personas}) : super(key: key);
+class SkillsList extends StatelessWidget {
+  const SkillsList({Key? key, required this.skills}) : super(key: key);
 
-  final List<Persona> personas;
+  final List<SkillData> skills;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +18,16 @@ class PersonaList extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           itemExtent: 80,
           itemBuilder: (context, index) {
-            final Persona persona = personas[index];
+            final SkillData skill = skills[index];
             return InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(PersonaPage.routeName,
-                    arguments: PersonaPageArgs(persona: persona));
+                Navigator.of(context).pushNamed(SkillPage.routeName,
+                    arguments: SkillPageArgs(skill));
               },
               child: Card(
                 child: ListTile(
-                  title: Text(persona.name),
-                  subtitle: Text(persona.arcana.name),
+                  title: Text(skill.name),
+                  subtitle: Text(skill.effect),
                   trailing: const Icon(
                     Icons.keyboard_arrow_right_rounded,
                   ),
@@ -35,7 +35,7 @@ class PersonaList extends StatelessWidget {
               ),
             );
           },
-          itemCount: personas.length),
+          itemCount: skills.length),
     );
   }
 }

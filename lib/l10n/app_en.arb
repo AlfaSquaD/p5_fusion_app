@@ -16,5 +16,18 @@
     "settings": "Settings",
     "select_dlc_personas": "Select DLC Personas",
     "select_dlc_personas_desc": "Select DLC Personas enabled in your game",
-    "about_app": "About App"
+    "about_app": "About App",
+    "version": "1.0.0",
+    "build_by": "Coded by Ensar Emir EROL",
+    "effect": "Effect",
+    "note": "Note",
+    "cost": "Cost",
+    "personas": "Personas",
+    "none": "None",
+    "unique": "Unique",
+    "skill_card_negotiation": "Skill Card Negotiation",
+    "skill_card_fusion": "Skill Card Fusion",
+    "type": "Type",
+    "search_name": "Search Persona",
+    "search_skill": "Search Skill"
 }

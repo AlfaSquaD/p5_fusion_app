@@ -1,14 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:p5_fusion_app/pages/fusion_page/fusion_page.dart';
+import 'package:p5_fusion_app/pages/skill_page/skill_page.dart';
 import 'package:p5_fusion_app/utils/instance_manager.dart';
+import 'package:p5_fusion_app/widgets/attribute_tile.dart';
 import 'package:p5_fusion_dart/p5_fusion_dart.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PersonaPage extends InheritedWidget {
   PersonaPage({Key? key, required PersonaPageArgs args})
       : persona = args.persona,
-        super(key: Key(args.persona.name), child: _PersonaPage());
+        super(key: Key(args.persona.name), child: _PersonaPage(key: key));
   static const String routeName = '/persona';
 
   final Persona persona;
@@ -48,30 +50,30 @@ class _PersonaPage extends StatelessWidget {
             child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: [
-            _AttributeItem(
+            AttributeTile(
                 title: AppLocalizations.of(context)!.arcana,
                 value: Text(persona.arcana.name)),
-            _AttributeItem(
+            AttributeTile(
                 title: AppLocalizations.of(context)!.level,
                 value: Text(persona.level.toString())),
-            _AttributeItem(
+            AttributeTile(
                 title: AppLocalizations.of(context)!.rare,
                 value: persona.rare
                     ? Text(AppLocalizations.of(context)!.yes)
                     : Text(AppLocalizations.of(context)!.no)),
-            _AttributeItem(
+            AttributeTile(
               title: AppLocalizations.of(context)!.dlc,
               value: persona.dlc
                   ? Text(AppLocalizations.of(context)!.yes)
                   : Text(AppLocalizations.of(context)!.no),
             ),
-            _AttributeItem(
+            AttributeTile(
               title: AppLocalizations.of(context)!.special,
               value: persona.special
                   ? Text(AppLocalizations.of(context)!.yes)
                   : Text(AppLocalizations.of(context)!.no),
             ),
-            _AttributeItem(
+            AttributeTile(
               title: AppLocalizations.of(context)!.stats,
               value: _TableCreator(
                   rowBuilder: (context, index) {
@@ -90,7 +92,7 @@ class _PersonaPage extends StatelessWidget {
                   },
                   rowCount: persona.stats.length),
             ),
-            _AttributeItem(
+            AttributeTile(
                 title: AppLocalizations.of(context)!.elements,
                 value: _TableCreator(
                   rowBuilder: (context, index) {
@@ -109,7 +111,7 @@ class _PersonaPage extends StatelessWidget {
                   },
                   rowCount: persona.elements.length,
                 )),
-            _AttributeItem(
+            AttributeTile(
                 title: AppLocalizations.of(context)!.skills,
                 value: Builder(builder: (context) {
                   final Map skillsMap = persona.skills;
@@ -120,14 +122,23 @@ class _PersonaPage extends StatelessWidget {
                   return Column(
                     children: [
                       for (final String skill in skills)
-                        _AttributeItem(
-                            title: persona.skills[skill] == 0
-                                ? skill
-                                : "$skill - At level ${skillsMap[skill]}",
-                            value: Text(InstanceManager.instance
-                                .get<SkillRepository>()
-                                .getSkill(skill)!
-                                .effect))
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, SkillPage.routeName,
+                                arguments: SkillPageArgs(InstanceManager
+                                    .instance
+                                    .get<SkillRepository>()
+                                    .getSkill(skill)!));
+                          },
+                          child: AttributeTile(
+                              title: persona.skills[skill] == 0
+                                  ? skill
+                                  : "$skill - At level ${skillsMap[skill]}",
+                              value: Text(InstanceManager.instance
+                                  .get<SkillRepository>()
+                                  .getSkill(skill)!
+                                  .effect)),
+                        )
                     ],
                   );
                 })),
@@ -162,25 +173,6 @@ class _PersonaPage extends StatelessWidget {
             )
           ]),
         )));
-  }
-}
-
-class _AttributeItem extends StatelessWidget {
-  const _AttributeItem({Key? key, required this.title, required this.value})
-      : super(key: key);
-  final String title;
-  final Widget value;
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(title),
-        ),
-        subtitle: value,
-      ),
-    );
   }
 }
 
