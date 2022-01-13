@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.p5_fusion_app">
+    package="com.ensar.persona5fusion">
    <application
-        android:label="p5_fusion_app"
+        android:label="Persona 5 Fusion Calculator"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

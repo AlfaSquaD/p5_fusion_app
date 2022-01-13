@@ -1,4 +1,4 @@
-package com.example.p5_fusion_app
+package com.ensar.persona5fusion
 
 import io.flutter.embedding.android.FlutterActivity
 
